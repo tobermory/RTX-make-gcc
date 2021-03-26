@@ -9,7 +9,7 @@ On various forums I frequent, e.g.
 * [Silicon Labs](https://www.silabs.com/community/mcu/32-bit/forum)
 
 the question sometimes pops up 'Can I build RTX with gcc/make' ? The
-answer, is yes, and this is how I do it, on Linux at least. YMMV on
+answer is yes, and this is how I do it, on Linux at least. YMMV on
 other platforms.
 
 ## The Prerequisites
