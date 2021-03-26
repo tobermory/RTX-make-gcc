@@ -70,8 +70,8 @@ which should fail. This is intentional. There is a localize step:
 $ make localize
 ```
 
-copies two files --- `RTX_Config.h` and `rtx_lib.c` --- from the RTX
-source tree into
+which copies two files --- `RTX_Config.h` and `rtx_lib.c` --- from the
+RTX source tree into
 
 ```
 ./src/test/include/RTX_Config.h
@@ -249,6 +249,17 @@ maintain an application-local `RTX_Config.h`. The forced rename of
 `RTX_Config.h`.
 
 Clear as mud?
+
+Note to RTX authors.  I think `RTX_Config.h` is erroneously included
+by both `rtx_evr.h` and `rtx_lib.h`. Because of this, the Makefile
+here has to include `RTX/Config` in CPPFLAGS. If I remove the
+`#include RTX_Config.h` from these files, RTX will still build from
+source.  The forced inclusion of RTX/Config in CPPFLAGS exacerbates
+the issue of recognizing that `RTX_Config.h` is really a end-user
+responsibility. I concede that it lives in a 'Config' directory, which
+highlights it as different from other .h files, but it is still
+referenced by the core RTX sources (which are all those except
+`rtx_lib.c`).
 
 ## Other Devices
 
