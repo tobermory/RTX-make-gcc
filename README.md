@@ -199,8 +199,8 @@ with these
 
 ```
 em_device.h
-system_EFM32GG.c
-startup_EFM32GG.c
+system_efm32gg.c
+startup_efm32gg.c
 efm32gg.ld
 ```
 
