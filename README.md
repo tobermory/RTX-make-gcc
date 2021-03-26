@@ -176,5 +176,33 @@ In this simple example, the `libRTX.a` build and example applications
 are linked against that .a in the same project directory.  These need
 not be combined, they could live in separate locations.
 
+## Other Devices
+
+The build here used the 'Device' files `system_ARMCM3.c and
+`startup_ARMCM3.c`, together with the linker script `gcc_arm.ld`. We
+also defined the Device Header to be `ARMCM3.h`.
+
+These files describe the most basic of Cortex-M3 cpus, just the core
+processor.  There are of course no peripherals, since these vary by
+vendor.  For real applications, you substitute in your vendor's device
+files.  I build for SiliconLabs EFM32GG, so replace occurrences in
+./Makefile of
+
+```
+ARMCM3.h
+system_ARMCM3.c
+startup_ARMCM3.c
+arm_gcc.ld
+```
+
+with these
+
+```
+em_device.h
+system_EFM32GG.c
+startup_EFM32GG.c
+efm32gg.ld
+```
+
 sdmaclean AT gmail.com
 
