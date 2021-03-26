@@ -54,6 +54,7 @@ verbose mode:
 ```
 $ make clean
 $ make V=1
+```
 
 With the library built, proceed to build some example applications
 (just one currently):
