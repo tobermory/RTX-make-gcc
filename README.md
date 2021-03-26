@@ -1,4 +1,4 @@
-# Composing Keil RTX Applications Using gcc/make
+# Building Keil's RTX RTOS Using Make+GCC
 
 On various forums I frequent, e.g.
 
@@ -9,14 +9,16 @@ On various forums I frequent, e.g.
 * [Silicon Labs](https://www.silabs.com/community/mcu/32-bit/forum)
 
 the question sometimes pops up 'Can I build RTX with gcc/make' ? The
-answer, is yes, and this is how to do it...
+answer, is yes, and this is how I do it.
 
 ## The Prerequisites
 
-GNU Make and the arm-none-eabi toolchain, both available on your
+GNU Make and the arm-none-eabi toolchain.  Ensure both are on your
 PATH. Author has v4.1 and v7.3.1 respectively, on Ubuntu 18LTS.
 
 ## The Preparation
+
+First, grab RTX sources from github:
 
 ```
 $ mkdir SOME_HOME_FOR_CMSIS_5
@@ -24,7 +26,7 @@ $ cd    SOME_HOME_FOR_CMSIS_5
 $ git clone https://github.com/ARM-software/CMSIS_5.git
 $ cd CMSIS_5 && git checkout 5.6.0
 ```
-Other tags may work too, I have built against 5.6.0 for a year or two.
+Other tags may work too, I have used 5.6.0 for a year or two.
 
 Then, return to this project and
 
@@ -42,26 +44,28 @@ See ./Makefile for more commentary, but essentially
 $ make lib
 ```
 
-should produce libRTX_CM3.a. To see the gcc cmd lines in full, turn on
+should produce libRTX_CM3.a. To see the gcc invocations in full, turn on
 verbose mode:
 
 ```
 $ make clean
 $ make V=1
 
-Then
+With the library built, proceed to build some example applications
+(just one currently):
 
 ```
 $ make examples
 ```
 
-should fail. This is intentional.
+which should fail. This is intentional.
 
 ```
 $ make localize
 ```
 
-copies a RTX_Config.h and rtx_lib.c file from the RTX source tree into
+copies two files --- RTX_Config.h and rtx_lib.c --- from the RTX
+source tree into
 
 ```
 ./src/test/include/RTX_Config.h
