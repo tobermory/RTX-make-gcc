@@ -15,7 +15,7 @@ other platforms.
 ## The Prerequisites
 
 GNU Make and the arm-none-eabi toolchain.  Ensure both are on your
-PATH. Author has v4.1 and v7.3.1 respectively, on Ubuntu 18LTS.
+PATH. Author has v4.1 and v7.3.1 respectively, on Ubuntu 18.04LTS.
 
 ## The Preparation
 
