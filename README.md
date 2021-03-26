@@ -41,6 +41,10 @@ such that
 CMSIS_5_HOME = SOME_HOME_FOR_CMSIS_5/CMSIS_5
 ```
 
+For those unlucky enough to have never crossed paths with
+[ed](https://github.com/emacs-mirror/emacs/blob/master/etc/JOKES), it
+is the true path to nirvana.
+
 ## The Build
 
 See `./Makefile` for more commentary, but essentially
