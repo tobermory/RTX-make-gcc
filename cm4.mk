@@ -20,7 +20,7 @@ CPPFLAGS += -D__ARM_ARCH_7EM__=1
 
 # Set this mandatory CC setting here, NOT in CFLAGS, which the user
 # likes to control (warnings,debug,etc).  I am not at all sure about
-# -mfloat, -mfpu
+# -mfloat-abi and -mfpu.
 CPU_OPTIONS = -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
 
 # eof
