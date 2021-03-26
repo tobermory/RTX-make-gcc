@@ -162,19 +162,93 @@ configuring RTX for that application via edits to (the localized)
 `RTX_Config.h`:
 
 ```
-gcc myApp.c rtx_lib_local.c libRTX.a -o myApp.axf
+gcc myApp.o rtx_lib_local.o libRTX.a -o myApp.axf
 ```
 
 Alternatively, you could bypass the .a file, and link your
 applications via inclusion of *.o from RTX:
 
 ```
-gcc mApp.c rtx_lib_local.c $(RTX_OBJS) $(RTOS2_OBJS) -o myApp.axf
+gcc mApp.o rtx_lib_local.o $(RTX_OBJS) $(RTOS2_OBJS) -o myApp.axf
 ```
 
 In this simple example, the `libRTX.a` build and example applications
 are linked against that .a in the same project directory.  These need
 not be combined, they could live in separate locations.
+
+### The Localization
+
+Why this somewhat ad-hoc localization step?
+
+```
+$ make
+$ make localize
+$ make examples
+```
+
+Why did we copy the two RTX files from the CMSIS_5 source tree into
+our project, and use those in application builds? Worse, why did one
+require a rename?
+
+Well, imagine we were to *not* copy them, and that our application
+depend on `rtx_lib.o` and not `rtx_lib_local.o`?  Well, then a linker
+line of
+
+```
+gcc myApp.o rtx_lib.o libRTX.a -o myApp.axf
+```
+
+will still succeed, since VPATH includes the `RTX/Source` that is home
+to `rtx_lib.c`. In fact, why make `rtx_lib.c` special at all?  If we
+included it in the `libRTX.a` build in the first place, we'd just have
+
+```
+gcc myApp.o libRTX.a -o myApp.axf
+```
+
+The problem here is that the `rtx_lib.c` in the RTX source tree will
+locate, via our CPPFLAGS, the `RTX_Config.h` file also in the RTX
+tree, at `RTX/Include`. That file has sensible default settings (4K
+total RTX memory footprint, tick freq of 1000, etc) for an RTX kernel.
+
+But how then do you build applications A1 and A2, which have different
+RTX requirements, if you have pre-compiled all parts of RTX into
+libRTX.a? You can't. You made your RTX_Config.h decisions (or someone
+else did) once, and are stuck with them.
+
+So, we need an application-build-time compile of `rtx_lib.c`, against
+a local `RTX_Config.h` that we can edit, and that's what we achieve
+via the localization step. But why the rename, from `rtx_lib.c` to
+`rtx_lib_local.c`?  Why this:
+
+```
+gcc myApp.o rtx_lib_local.o libRTX.a -o myApp.axf
+```
+
+and not just this:
+
+```
+gcc myApp.o rtx_lib.o libRTX.a -o myApp.axf
+```
+
+Well, the latter case will succeed even if we omit the localization
+step. VPATH and CPPFLAGS will locate `rtx_lib.c` and `RTX_Config.h` in
+the RTX source tree, defeating the point of the intended
+localization. If the user forgets to `make localize`, their apps will
+still build, but again, A1 and A2 can't co-exist. Only if our
+application depednency graph is
+
+```
+gcc myApp.o rtx_lib_local.o libRTX.a -o myApp.axf
+```
+
+do we fail the build *unless* the localization step has been done.
+And that failure *forces* the user to become aware of the need to
+maintain an application-local `RTX_Config.h`. The forced rename of
+`rtx_lib.c` is the vehicle used to highlight the need for a local
+`RTX_Config.h`.
+
+Clear as mud?
 
 ## Other Devices
 
