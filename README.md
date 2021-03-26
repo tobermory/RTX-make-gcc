@@ -213,7 +213,7 @@ total RTX memory footprint, tick freq of 1000, etc) for an RTX kernel.
 
 But how then do you build applications A1 and A2, which have different
 RTX requirements, if you have pre-compiled all parts of RTX into
-libRTX.a? You can't. You made your RTX_Config.h decisions (or someone
+libRTX.a? You can't. You made your `RTX_Config.h` decisions (or someone
 else did) once, and are stuck with them.
 
 So, we need an application-build-time compile of `rtx_lib.c`, against
