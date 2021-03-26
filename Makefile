@@ -4,7 +4,7 @@
 # gcc/make embedded application.
 
 # You first build libRTX.a from the appropriate RTX sources, obtained
-# from githib. This Makefile does the build.
+# from github. This Makefile does the build.
 
 # Second, you make local copies of RTX_Config.h and rtx_lib.c (both
 # bundled with RTX). You edit RTX_Config.h to suit your application
