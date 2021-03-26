@@ -23,8 +23,8 @@ First, grab RTX sources from github:
 ```
 $ mkdir SOME_HOME_FOR_CMSIS_5
 $ cd    SOME_HOME_FOR_CMSIS_5
-$ git clone https://github.com/ARM-software/CMSIS_5.git
-$ cd CMSIS_5 && git checkout 5.6.0
+$ git   clone https://github.com/ARM-software/CMSIS_5.git
+$ cd    CMSIS_5 && git checkout 5.6.0
 ```
 Other tags may work too, I have used 5.6.0 for a year or two.
 
