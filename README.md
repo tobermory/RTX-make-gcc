@@ -178,15 +178,15 @@ not be combined, they could live in separate locations.
 
 ## Other Devices
 
-The build here used the 'Device' files `system_ARMCM3.c and
+The build here used the 'Device' files `system_ARMCM3.c` and
 `startup_ARMCM3.c`, together with the linker script `gcc_arm.ld`. We
 also defined the Device Header to be `ARMCM3.h`.
 
 These files describe the most basic of Cortex-M3 cpus, just the core
 processor.  There are of course no peripherals, since these vary by
-vendor.  For real applications, you substitute in your vendor's device
-files.  I build for SiliconLabs EFM32GG, so replace occurrences in
-./Makefile of
+vendor. For real applications, you substitute in your vendor's device
+files.  I build for SiliconLabs EFM32GG, so would replace occurrences in
+./Makefile and *.mk of
 
 ```
 ARMCM3.h
