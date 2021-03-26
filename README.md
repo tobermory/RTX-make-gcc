@@ -236,7 +236,7 @@ step. VPATH and CPPFLAGS will locate `rtx_lib.c` and `RTX_Config.h` in
 the RTX source tree, defeating the point of the intended
 localization. If the user forgets to `make localize`, their apps will
 still build, but again, A1 and A2 can't co-exist. Only if our
-application depednency graph is
+application dependency graph is
 
 ```
 gcc myApp.o rtx_lib_local.o libRTX.a -o myApp.axf
