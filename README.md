@@ -208,7 +208,7 @@ gcc myApp.o libRTX.a -o myApp.axf
 
 The problem here is that the `rtx_lib.c` in the RTX source tree will
 locate, via our CPPFLAGS, the `RTX_Config.h` file also in the RTX
-tree, at `RTX/Include`. That file has sensible default settings (4K
+tree, at `RTX/Config`. That file has sensible default settings (4K
 total RTX memory footprint, tick freq of 1000, etc) for an RTX kernel.
 
 But how then do you build applications A1 and A2, which have different
