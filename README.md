@@ -92,7 +92,7 @@ should produce `kernelStart.bin`, with its .axf sibling, along with a
 .map file.  How you flash the .bin file to your target is a separate
 issue (but one that I also do via make!)
 
-## An M4 Build
+### An M4 Build
 
 By default, this Makefile builds for a Cortex M3 (author's system). M4
 settings are also included, so
