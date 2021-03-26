@@ -31,7 +31,7 @@ Other tags may work too, I have used 5.6.0 for a year or two.
 Then, return to this project and
 
 ```
-$ ed|vi ./Makefile
+$ ed ./Makefile
 ```
 
 such that
