@@ -53,7 +53,7 @@ RTOS2_HOME = $(CMSIS_5_HOME)/CMSIS/RTOS2/
 RTX_HOME   = $(RTOS2_HOME)/RTX
 
 # For Cortex-M cpus, systick suffices as RTX tick source
-# (though all funcs are weak, so you CAN override)
+# (though all funcs are WEAK, so you CAN override).
 RTOS2_SRCS = os_systick.c
 
 RTX_ALL_C_SRCS = $(shell cd $(RTX_HOME)/Source && ls *.c)
@@ -66,7 +66,7 @@ RTX_C_SRCS = $(filter-out rtx_lib.c, $(RTX_ALL_C_SRCS))
 # RTX_Config.c contains WEAK impls of idle thread, error handler.
 RTX_CONFIG_SRCS = RTX_Config.c
 
-# .o file lists follow from corresponding .c, .S
+# .o file lists follow from corresponding .c, .S (the only .S is in cm3.mk)
 RTOS2_OBJS = $(RTOS2_SRCS:.c=.o)
 
 RTX_C_OBJS = $(RTX_C_SRCS:.c=.o)
@@ -160,7 +160,7 @@ examples: $(EXAMPLES_BIN)
 
 %.o : %.S
 	@echo AS $(<F)
-	$(ECHO)$(AS) $(CPU_OPTIONS) $(ASFLAGS) $< -o $@
+	$(ECHO)$(AS) $(CPU_OPTIONS) $(ASFLAGS) $< $(OUTPUT_OPTION)
 
 # Note how even the linker needs CPU_OPTIONS too, else it picks up the
 # wrong (non-Thumb) libc.a, crt.o, etc.

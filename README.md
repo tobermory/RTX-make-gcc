@@ -169,7 +169,7 @@ Alternatively, you could bypass the .a file, and link your
 applications via inclusion of *.o from RTX:
 
 ```
-gcc mApp.c rtx_lib_local.c $(RTX_OBJS) -o myApp.axf
+gcc mApp.c rtx_lib_local.c $(RTX_OBJS) $(RTOS2_OBJS) -o myApp.axf
 ```
 
 In this simple example, the `libRTX.a` build and example applications
