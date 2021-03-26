@@ -42,7 +42,14 @@ See ./Makefile for more commentary, but essentially
 $ make lib
 ```
 
-should produce libRTX_CM3.a. Then
+should produce libRTX_CM3.a. To see the gcc cmd lines in full, turn on
+verbose mode:
+
+```
+$ make clean
+$ make V=1
+
+Then
 
 ```
 $ make examples
@@ -84,8 +91,8 @@ $ make clean
 $ make CM4=1
 $ make examples CM4=1
 
-Alternatively, edit the Makefile to include cm4.mk rather than cm3.mk, then
-an M4 build will default.
+Alternatively, edit the Makefile to 'include cm4.mk' rather than
+'include cm3.mk', then an M4 build will default.
 
 ## The Details
 
@@ -101,7 +108,7 @@ application --- space is allocated for various control blocks, thread
 stacks, etc. The space needed could not possibly be known at libRTX.a
 build time, we need this postponed build step.
 
-Via Make's VPATH and CPPFLAGS, we are referencing RTX and other
+Via VPATH and CPPFLAGS, we are referencing RTX and other
 CMSIS_5 files from these directories:
 
 ```
@@ -141,7 +148,6 @@ myProj/src/test/c/rtx_lib_local.c
 and combine rtx_lib_local.c with any application file, after
 configuring RTX for that application via edits to (the localized) RTX_Config.h.
 
-
 ```
 gcc mApp.c rtx_lib_local.c libRTX.a -o myApp.axf
 ```
@@ -152,6 +158,10 @@ applications via inclusion of *.o from RTX:
 ```
 gcc mApp.c rtx_lib_local.c $(RTX_OBJS) -o myApp.axf
 ```
+
+In this simple example, the libRTX.a build and example applications
+are linked against that .a in the same project directory.  These need
+not be combined, they could live in separate locations.
 
 sdmaclean AT gmail.com
 

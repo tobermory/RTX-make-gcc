@@ -1,0 +1,8 @@
+*.bin
+*.axf
+*.map
+
+*.a
+*.o
+
+# eof
