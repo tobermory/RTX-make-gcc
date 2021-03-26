@@ -69,7 +69,7 @@ which should fail. This is intentional. There is a localize step:
 $ make localize
 ```
 
-copies two files --- *RTX_Config.h* and rtx_lib.c --- from the RTX
+copies two files --- `RTX_Config.h` and `rtx_lib.c` --- from the RTX
 source tree into
 
 ```
