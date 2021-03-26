@@ -63,7 +63,7 @@ With the library built, proceed to build some example applications
 $ make examples
 ```
 
-which should fail. This is intentional.
+which should fail. This is intentional. There is a localize step:
 
 ```
 $ make localize
