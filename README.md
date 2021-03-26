@@ -31,8 +31,12 @@ Other tags may work too, I have used 5.6.0 for a year or two.
 Then, return to this project and
 
 ```
-$ edit ./Makefile such that
+$ ed|vi ./Makefile
+```
 
+such that
+
+```
 CMSIS_5_HOME = SOME_HOME_FOR_CMSIS_5/CMSIS_5
 ```
 
