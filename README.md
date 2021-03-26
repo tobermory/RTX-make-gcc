@@ -42,13 +42,13 @@ CMSIS_5_HOME = SOME_HOME_FOR_CMSIS_5/CMSIS_5
 
 ## The Build
 
-See ./Makefile for more commentary, but essentially
+See `./Makefile` for more commentary, but essentially
 
 ```
 $ make lib
 ```
 
-should produce libRTX_CM3.a. To see the gcc invocations in full, turn on
+should produce `libRTX_CM3.a`. To see the gcc invocations in full, turn on
 verbose mode:
 
 ```
@@ -79,15 +79,15 @@ source tree into
 ```
 
 You configure RTX (thread count, tick freq, stack checking, etc) for
-your application(s) by editing the now-local RTX_Config.h and
-rebuilding rtx_lib_local.c. For now, no edits needed. The presence of
+your application(s) by editing the now-local `RTX_Config.h` and
+rebuilding `rtx_lib_local.c`. For now, no edits needed. The presence of
 the files is what matters. The examples should now build:
 
 ```
 $ make examples
 ```
 
-should produce kernelStart.bin, with its .axf sibling, along with a
+should produce `kernelStart.bin`, with its .axf sibling, along with a
 .map file.  How you flash the .bin file to your target is a separate
 issue (but one that I also do via make!)
 
@@ -96,12 +96,14 @@ issue (but one that I also do via make!)
 By default, this Makefile builds for a Cortex M3 (author's system). M4
 settings are also included, so
 
+```
 $ make clean
 $ make CM4=1
 $ make examples CM4=1
+```
 
-Alternatively, edit the Makefile to 'include cm4.mk' rather than
-'include cm3.mk', then an M4 build will default.
+Alternatively, edit the Makefile to `include cm4.mk` rather than
+`include cm3.mk`, then an M4 build will default.
 
 ## The Details
 
@@ -111,10 +113,10 @@ use GNU Make's VPATH and CPPFLAGS variables to reference rather than
 copy the required files. We don't edit *any* file in the retrieved
 CMSIS_5 bundle.
 
-We copy just TWO files to our local application: RTX_Config.h and
-rtx_lib.c.  These form the 'constructor' of RTX in any RTX-using
+We copy just TWO files to our local application: `RTX_Config.h` and
+`rtx_lib.c`.  These form the 'constructor' of RTX in any RTX-using
 application --- space is allocated for various control blocks, thread
-stacks, etc. The space needed could not possibly be known at libRTX.a
+stacks, etc. The space needed could not possibly be known at `libRTX.a`
 build time, we need this postponed build step.
 
 Via VPATH and CPPFLAGS, we are referencing RTX and other
@@ -133,7 +135,7 @@ CMSIS_5/Device/ARM/ARMCM3|4/Source
 CMSIS_5/Device/ARM/ARMCM3|4/Source/GCC
 ```
 
-We build a libRTX.a from files in the above tree.  The libRTX.a lives
+We build a `libRTX.a` from files in the above tree.  The `libRTX.a` lives
 in our project directory, in this case, in this directory:
 
 ```
@@ -154,11 +156,12 @@ myProj/src/test/include/RTX_Config.h
 myProj/src/test/c/rtx_lib_local.c
 ```
 
-and combine rtx_lib_local.c with any application file, after
-configuring RTX for that application via edits to (the localized) RTX_Config.h.
+and combine `rtx_lib_local.c` with any application file, after
+configuring RTX for that application via edits to (the localized)
+`RTX_Config.h`:
 
 ```
-gcc mApp.c rtx_lib_local.c libRTX.a -o myApp.axf
+gcc myApp.c rtx_lib_local.c libRTX.a -o myApp.axf
 ```
 
 Alternatively, you could bypass the .a file, and link your
@@ -168,7 +171,7 @@ applications via inclusion of *.o from RTX:
 gcc mApp.c rtx_lib_local.c $(RTX_OBJS) -o myApp.axf
 ```
 
-In this simple example, the libRTX.a build and example applications
+In this simple example, the `libRTX.a` build and example applications
 are linked against that .a in the same project directory.  These need
 not be combined, they could live in separate locations.
 
