@@ -168,7 +168,7 @@ examples: $(EXAMPLES_BIN)
 
 # Note how even the linker needs CPU_OPTIONS too, else it picks up the
 # wrong (non-Thumb) libc.a, crt.o, etc.
-$(EXAMPLES_AXF) : %.axf: %.o rtx_lib_local.o $(LIB) $(DEVICE_OBJS)
+%.axf: %.o rtx_lib_local.o $(LIB) $(DEVICE_OBJS)
 	@echo LD $(@F) = $(^F)
 	$(ECHO)$(CC) $(LDFLAGS) $(CPU_OPTIONS) -T $(LDSCRIPT) \
 	-Xlinker -Map=$*.map $^ $(LDLIBS) $(OUTPUT_OPTION)
