@@ -108,10 +108,14 @@ CPPFLAGS += -I$(DEVICE_HOME)/Include
 # rtx_core_cm.h requires this macro
 CPPFLAGS += -DCMSIS_device_header=\"$(DEVICE_HEADER)\"
 
-# rtx_delay.c, via rtx_lib.h, erroneously includes RTX_Config.h.  If
-# you remove '#include RTX_Config.h' from rtx_lib.h, rtx_delay.c still
-# builds.  In fact, rtx_lib.c is ONLY true includer of RTX_Config.h.
-# See 'localize' target later.
+# Pah! RTX/Source/rtx_lib.h and RTX/Include/rtx_evr.h both erroneously
+# include RTX_Config.h.  If you remove those includes, all the RTX
+# files we want to build will STILL build fine. And THAT would allow
+# us to omit RTX/Config from CPPFLAGS. By having RTX/Config in
+# CPPFLAGS, we have to deal with the issue of user application builds
+# locating RTX/Config/RTX_Config.h in error. rtx_lib.c is the ONLY
+# true includer of RTX_Config.h!!!  See 'localize' target later, and
+# in the README.
 CPPFLAGS += -I$(RTX_HOME)/Config
 
 # Locates rtx_os.h
