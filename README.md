@@ -115,16 +115,20 @@ Alternatively, edit the Makefile to `include cm4.mk` rather than
 We are just cherry-picking sources from the CMSIS_5 source tree that
 we grabbed from [github](https://github.com/ARM-software/CMSIS_5).  We
 use GNU Make's VPATH and CPPFLAGS variables (former locates .c files,
-latter locates .h files) to reference rather than copy the required
-files. We don't edit *any* file in the retrieved CMSIS_5 bundle. We *do*
-supply an empty `RTE_Components.h` file, since that is referenced
-within the RTX sources but not included (Keil provides it?).
+latter locates .h files) to reference-in-place rather than
+copy-someplace-else each of the RTX sources. We don't edit *any* file in
+the retrieved CMSIS_5 bundle. We *do* supply an empty
+`RTE_Components.h` file, since that is referenced within the RTX
+sources but not included (Keil provides it?).
 
-We copy just TWO files to our local application: `RTX_Config.h` and
-`rtx_lib.c`.  These form the 'constructor' of RTX in any RTX-using
-application --- space is allocated for various control blocks, thread
-stacks, etc. The space needed could not possibly be known at `libRTX.a`
-build time, we need this postponed build step.
+Actually, we *do* copy two files to our local application:
+`RTX_Config.h` and `rtx_lib.c`, for a very specific purpose. These
+files form the 'constructor' of RTX in any RTX-using application ---
+space is allocated for various control blocks, thread stacks, etc. The
+space needed could not possibly be known at `libRTX.a` build time, we
+need this postponed build step. `RTX_Config.h`, via a series of
+#defines, describes how the RTX kernel will look (thread count, etc),
+`rtx_lib.c` #includes `RTX_Config.h` and compiles those requirements.
 
 Via VPATH and CPPFLAGS, we are referencing RTX and other
 CMSIS_5 files from these directories:
