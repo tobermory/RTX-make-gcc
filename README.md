@@ -116,7 +116,9 @@ We are just cherry-picking sources from the CMSIS_5 source tree that
 we grabbed from [github](https://github.com/ARM-software/CMSIS_5).  We
 use GNU Make's VPATH and CPPFLAGS variables to reference rather than
 copy the required files. We don't edit *any* file in the retrieved
-CMSIS_5 bundle.
+CMSIS_5 bundle. We do supply an empty `RTE_Components.h` file, since
+that is referenced within the RTX sources but not included (Keil
+provides it?).
 
 We copy just TWO files to our local application: `RTX_Config.h` and
 `rtx_lib.c`.  These form the 'constructor' of RTX in any RTX-using
