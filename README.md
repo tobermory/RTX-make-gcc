@@ -150,7 +150,7 @@ We build a `libRTX.a` from files in the above tree.  The `libRTX.a` lives
 in our project directory, in this case, in this directory:
 
 ```
-myproj/libRTX.a
+./libRTX.a
 ```
 
 We then copy two such files:
@@ -160,11 +160,11 @@ CMSIS_5/CMSIS/RTOS2/RTX/Config/RTX_Config.h
 CMSIS_5/CMSIS/RTOS2/RTX/Source/rtx_lib.x
 ```
 
-into our project:
+into this project:
 
 ```
-myProj/src/test/include/RTX_Config.h
-myProj/src/test/c/rtx_lib_local.c
+./src/test/include/RTX_Config.h
+./src/test/c/rtx_lib_local.c
 ```
 
 and combine `rtx_lib_local.c` with any application file, after
