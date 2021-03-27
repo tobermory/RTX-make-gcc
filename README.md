@@ -127,7 +127,7 @@ files form the 'constructor' of RTX in any RTX-using application ---
 space is allocated for various control blocks, thread stacks, etc. The
 space needed could not possibly be known at `libRTX.a` build time, we
 need this postponed build step. `RTX_Config.h`, via a series of
-#defines, describes how the RTX kernel will look (thread count, etc),
+#defines, describes how the RTX kernel will look (thread count, etc).
 `rtx_lib.c` #includes `RTX_Config.h` and compiles those requirements.
 
 Via VPATH and CPPFLAGS, we are referencing RTX and other
