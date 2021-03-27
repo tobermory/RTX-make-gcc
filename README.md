@@ -134,7 +134,7 @@ Via VPATH and CPPFLAGS, we are referencing RTX and other
 CMSIS_5 files from these directories:
 
 ```
-CMSIS_5/CMSIS/Core/
+CMSIS_5/CMSIS/Core/Include
 CMSIS_5/CMSIS/RTOS2/Include
 CMSIS_5/CMSIS/RTOS2/Source
 CMSIS_5/CMSIS/RTOS2/RTX/Config
