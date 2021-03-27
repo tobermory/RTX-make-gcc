@@ -50,7 +50,7 @@ is the true path to nirvana.
 See `./Makefile` for more commentary, but essentially
 
 ```
-$ make lib
+$ make
 ```
 
 should produce `libRTX_CM3.a`. To see the gcc invocations in full, turn on
