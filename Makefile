@@ -18,13 +18,21 @@ include toolchain.mk
 
 ############################### CMSIS BUNDLE ##############################
 
-# ARM Software's github repo cloned to some directory.  Replace with YOURS
+# The 5.6.0 tag of the CMSIS_5 repo needs to be checked out for this
+# Makefile to work (that is, we are building against 5.6.0), e.g.
+
+# $ git clone https://github.com/ARM-software/CMSIS_5.git
+# $ cd CMSIS_5
+# $ git checkout 5.6.0
+CMSIS_5_VERSION = 5.6.0
+
+# Set this next variable to the path to CMSIS_5 above. Mine is at ../CMSIS_5
 CMSIS_5_HOME = ../CMSIS_5
 
 ################################### CPU #################################
 
 # We're building here for M3 by default, you could switch in e.g. M4
-# (make CM4=1 or edit below)
+# (make CM4=1 or edit below).
 
 ifdef CM4
 include cm4.mk
