@@ -14,8 +14,6 @@ DEVICE_SRCS = system_ARMCM4.c startup_ARMCM4.c
 
 CPPFLAGS += -DARMCM4_FP
 
-CPPFLAGS += -D__CORTEX_M4
-
 CPPFLAGS += -D__ARM_ARCH_7EM__=1
 
 # Set this mandatory CC setting here, NOT in CFLAGS, which the user

@@ -18,13 +18,13 @@ include toolchain.mk
 
 ############################### CMSIS BUNDLE ##############################
 
-# The 5.6.0 tag of the CMSIS_5 repo needs to be checked out for this
+# The 5.7.0 tag of the CMSIS_5 repo needs to be checked out for this
 # Makefile to work (that is, we are building against 5.6.0), e.g.
 
 # $ git clone https://github.com/ARM-software/CMSIS_5.git
 # $ cd CMSIS_5
-# $ git checkout 5.6.0
-CMSIS_5_VERSION = 5.6.0
+# $ git checkout 5.7.0
+CMSIS_5_VERSION = 5.7.0
 
 # Set this next variable to the path to CMSIS_5 above. Mine is at ../CMSIS_5
 CMSIS_5_HOME = ../CMSIS_5
