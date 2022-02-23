@@ -97,7 +97,7 @@ To configure the RTX parts of each application (tick frequency, thread
 stacks, etc) requires including one RTX source file (`rtx_lib.c`) in
 the build and link of each application. Again, we can do that using gcc/make.
 
-We make no edits to ANY RTX source file, be it .c or .h, in the
+We make no edits to any RTX source file, be it .c or .h, in the
 library build and in application builds. 
 
 ## Building RTX As A Library
@@ -246,7 +246,7 @@ app2.axf : app2.o app2_rtx_lib.o system_ARMCM3.o startup_ARMCM3.o
 	...
 ```
 
-The applications are now ready to be built, and we haven't edit ANY
+The applications are now ready to be built, and we haven't edit any
 RTX sources. The default make target in the apps directory builds a
 .bin file for each application, ready to be flashed to a target board:
 
