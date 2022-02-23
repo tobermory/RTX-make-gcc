@@ -240,7 +240,6 @@ RTX sources. The default make target in the apps directory builds a
 $ make
 $ ls *.bin
 app1.bin app2.bin
-$
 ```
 
 To see the build in full, perhaps for one app only:
