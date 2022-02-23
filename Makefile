@@ -18,13 +18,13 @@ include toolchain.mk
 
 ############################### CMSIS BUNDLE ##############################
 
-# The 5.7.0 tag of the CMSIS_5 repo needs to be checked out for this
+# The 5.8.0 tag of the CMSIS_5 repo needs to be checked out for this
 # Makefile to work (that is, we are building against 5.6.0), e.g.
 
 # $ git clone https://github.com/ARM-software/CMSIS_5.git
 # $ cd CMSIS_5
-# $ git checkout 5.7.0
-CMSIS_5_VERSION = 5.7.0
+# $ git checkout 5.8.0
+CMSIS_5_VERSION = 5.8.0
 
 # Set this next variable to the path to CMSIS_5 above. Mine is at ../CMSIS_5
 CMSIS_5_HOME = ../CMSIS_5
@@ -83,7 +83,8 @@ RTX_ASM_OBJS = $(RTX_ASM_SRCS:.S=.o)
 
 RTX_CONFIG_OBJS = $(RTX_CONFIG_SRCS:.c=.o)
 
-RTX_OBJS = $(RTX_C_OBJS) $(RTX_ASM_OBJS) $(RTX_CONFIG_OBJS)
+#RTX_OBJS = $(RTX_C_OBJS) $(RTX_ASM_OBJS) $(RTX_CONFIG_OBJS)
+RTX_OBJS = $(RTX_C_OBJS) $(RTX_CONFIG_OBJS)
 
 #################### Build Settings: VPATH, CPPFLAGS ##############
 
@@ -172,11 +173,12 @@ examples: $(EXAMPLES_BIN)
 
 %.o : %.S
 	@echo AS $(<F)
-	$(ECHO)$(AS) $(CPU_OPTIONS) $(ASFLAGS) $< $(OUTPUT_OPTION)
+	$(ECHO)$(CC) -c $(CPPFLAGS) $(CPU_OPTIONS) $(ASFLAGS) $< \
+	$(OUTPUT_OPTION)
 
 # Note how even the linker needs CPU_OPTIONS too, else it picks up the
 # wrong (non-Thumb) libc.a, crt.o, etc.
-%.axf: %.o rtx_lib_local.o $(LIB) $(DEVICE_OBJS)
+$(EXAMPLES_AXF) : %.axf: %.o rtx_lib_local.o $(RTX_ASM_OBJS) $(LIB) $(DEVICE_OBJS)
 	@echo LD $(@F) = $(^F)
 	$(ECHO)$(CC) $(LDFLAGS) $(CPU_OPTIONS) -T $(LDSCRIPT) \
 	-Xlinker -Map=$*.map $^ $(LDLIBS) $(OUTPUT_OPTION)
@@ -199,12 +201,16 @@ examples: $(EXAMPLES_BIN)
 # on how they configure an RTX kernel for their specific application,
 # by editing the now-local RTX_Config.h.
 
+TO_LOCALIZE += RTX_Config.h rtx_lib.c 
+
 localize:
-	@echo Localizing RTX_Config.h, rtx_lib.c
+	@echo Localizing $(TO_LOCALIZE)
 	$(ECHO)[ -f src/test/c/rtx_lib_local.c ] || \
 	cp $(RTX_HOME)/Source/rtx_lib.c src/test/c/rtx_lib_local.c
 	$(ECHO)[ -f src/test/include/RTX_Config.h ] || \
 	cp $(RTX_HOME)/Config/RTX_Config.h src/test/include
+	$(ECHO)[ -f src/test/c/$(RTX_ASM_SRCS) ] || \
+	cp $(RTX_HOME)/Source/GCC/$(RTX_ASM_SRCS) src/test/cinclude
 
 # This next way of localizing RTX_Config.h is more 'make-like' but
 # ironically works SO well that the user is NOT forced to run 'make
@@ -246,7 +252,9 @@ distclean: clean
 # Inspect VPATH, CPPFLAGS, useful when things won't build
 flags:
 	@echo VPATH    $(VPATH)
+	@echo
 	@echo CPPFLAGS $(CPPFLAGS)
+	@echo
 
 .PHONY: default lib examples localize clean distclean flags
 
