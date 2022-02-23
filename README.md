@@ -159,7 +159,7 @@ See the [Makefile](Makefile) for more commentary.
 We include two trivial applications.  They are placed in a
 sub-directory 'apps' to convey the intent that the library can be
 built independently of applications. The Makefile in the 'apps'
-directory in o way depends on the Makefile described thus far (the one
+directory in no way depends on the Makefile described thus far (the one
 that builds the lib):
 
 ```
@@ -173,7 +173,7 @@ $ cat Makefile
 Edit the Makefile to fix the line:
 
 ```
-CMSIS_5_HOME = SOME_PATH_TO_CMSIS_5
+CMSIS_5_HOME = SOME_HOME_FOR_CMSIS_5/CMSIS_5
 ```
 as you did for the library build Makefile above.
 
@@ -202,9 +202,9 @@ right for one but wrong for the other.
 If you have just a single application in your project, disregard this
 and just use rtx_lib.c in-place via VPATH. 
 
-Next, we want to configure app1's and app2's RTX runtime,
-individually.  We can do this via GNU make's 'target-specific
-variable values' (6.11 GNU make manual):
+Next, we want to configure each application's RTX runtime
+requirements, individually.  We can do this via GNU make's
+'target-specific variable values' (6.11 GNU make manual):
 
 ```
 app1_rtx_lib.o : CPPFLAGS += -DOS_TICK_FREQ=100
@@ -212,9 +212,29 @@ app1_rtx_lib.o : CPPFLAGS += -DOS_TICK_FREQ=100
 app2_rtx_lib.o : CPPFLAGS += -DOS_DYNAMIC_MEM_SIZE=16384 -DOS_TICK_FREQ=500
 ```
 
-The apps are now ready to be built, and we haven't edit ANY RTX
-sources.  The default make target in the apps directory builds a .bin
-file for each application, ready to be flashed to a target board:
+Finally, we need a way to link each application into something
+runnable on a target board.  The recipe will use the RTX library built
+above:
+
+```
+$(APPS_AXF) : %.axf : %.o %_rtx_lib.o $(DEVICE_OBJS)
+	@echo LD $(@F) = $(^F)
+	$(ECHO)$(CC) $(LDFLAGS) $^ -L.. -l$(LIB) $(LDLIBS) $(OUTPUT_OPTION)
+```
+
+which is a terse way of saying this:
+
+```
+app1.axf : app1.o app1_rtx_lib.o system_ARMCM3.o startup_ARMCM3.o
+	...
+
+app2.axf : app2.o app2_rtx_lib.o system_ARMCM3.o startup_ARMCM3.o
+	...
+```
+
+The applications are now ready to be built, and we haven't edit ANY
+RTX sources. The default make target in the apps directory builds a
+.bin file for each application, ready to be flashed to a target board:
 
 ```
 $ make
@@ -234,7 +254,7 @@ $ make app1 V=1
 See the [apps/Makefile](apps/Makefile) for more details.
 
 Like the library build, we can also build the example apps for CM4
-instead of CM3. Ensure the CM4 lib is built:
+instead of CM3. Ensure the CM4 lib is built first:
 
 ```
 $ cd ..
@@ -258,8 +278,8 @@ script `gcc_arm.ld`. We also defined the Device Header to be
 These files describe the most basic of Cortex-M3 cpus, just the core
 processor.  There are of course no peripherals, since these vary by
 vendor. For real applications, you substitute in your vendor's device
-files.  I build for SiliconLabs EFM32GG, so would replace occurrences in
-./Makefile and *.mk of
+files.  I build for SiliconLabs EFM32GG, so would replace occurrences
+in *.mk of these:
 
 ```
 ARMCM3.h
@@ -268,7 +288,7 @@ startup_ARMCM3.c
 arm_gcc.ld
 ```
 
-with these
+with these:
 
 ```
 em_device.h
@@ -277,5 +297,5 @@ startup_efm32gg.c
 efm32gg.ld
 ```
 
-sdmaclean AT gmail.com
+sdmaclean AT gmale
 
