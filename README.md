@@ -34,6 +34,9 @@ Our
 tag uses the RTX sources labelled 5.5.1, as current in the CMSIS_5
 [5.6.0](https://github.com/ARM-software/CMSIS_5/releases/tag/5.6.0) tag.
 
+The head of our
+[main](https://github.com/tobermory/RTX-make-gcc/tree/main) branch is
+currently the 5.8.0 tag.
 
 ## The Prerequisites
 
@@ -80,10 +83,10 @@ To configure the RTX parts of each application (tick frequency, thread
 stacks, etc) requires including one RTX source file (rtx_lib.c) in
 the build and link of each application. Again, we can do that using gcc/make.
 
-Our goal is to make no edits to ANY RTX source file, be it a .c or a
-.h, in the library build and in application builds.
+We make no edits to ANY RTX source file, be it .c or .h, in the
+library build and in application builds. 
 
-## Building RTX as a Library
+## Building RTX As A Library
 
 To build most of RTX 5.5.3 as a library requires we make decisions on two
 RTX features at library-build time. These are
