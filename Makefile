@@ -1,3 +1,5 @@
+# Stuart Maclean: The RTX (RTOS2-compliant) RTOS, built by GCC/Make: Library.
+
 # GNU Toolchain for bare-metal ARM CPUs
 AR = arm-none-eabi-ar
 CC = arm-none-eabi-gcc

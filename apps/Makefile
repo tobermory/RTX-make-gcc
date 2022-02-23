@@ -1,3 +1,6 @@
+# Stuart Maclean: The RTX (RTOS2-compliant) RTOS, built by GCC/Make:
+# Applications.
+
 # Two hypothetical RTX-using applications, in app1.c and app2.c
 # Each can have its own RTX configuration (OS_TICK_FREQ, etc) with
 # no RTX edits, not even RTX_Config.h.
