@@ -4,13 +4,9 @@
 
 LIB = libRTX_CM3.a
 
-RTX_ASM_SRCS = irq_cm3.S
-
 DEVICE_HOME = $(CMSIS_5_HOME)/Device/ARM/ARMCM3
 
 DEVICE_HEADER = ARMCM3.h
-
-DEVICE_SRCS = system_ARMCM3.c startup_ARMCM3.c
 
 CPPFLAGS += -DARMCM3
 
