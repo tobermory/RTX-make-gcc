@@ -94,7 +94,7 @@ describe such a build using gcc/make. We concentrate on builds for
 Cortex M3 and M4 processors.
 
 To configure the RTX parts of each application (tick frequency, thread
-stacks, etc) requires including one RTX source file (rtx_lib.c) in
+stacks, etc) requires including one RTX source file (`rtx_lib.c`) in
 the build and link of each application. Again, we can do that using gcc/make.
 
 We make no edits to ANY RTX source file, be it .c or .h, in the
@@ -192,16 +192,16 @@ CMSIS_5_HOME = SOME_HOME_FOR_CMSIS_5/CMSIS_5
 as you did for the library build Makefile above.
 
 As stated above, one RTX source file needs compiling with each
-application.  This is rtx_lib.c, and in combination with the RTX
-header RTX_Config.h, it allows for RTX configuration of any particular
+application.  This is `rtx_lib.c`, and in combination with the RTX
+header `RTX_Config.h`, it allows for RTX configuration of any particular
 application.
 
-Luckily, RTX_Config.h is written in such a way that RTX can be
+Luckily, `RTX_Config.h` is written in such a way that RTX can be
 configured without any need to edit it.  We use that fact to our
 advantage.
 
 First, we want a make target that can associate a 'fresh copy' of
-rtx_lib.c with each application, and we have that for our two
+`rtx_lib.c` with each application, and we have that for our two
 examples:
 
 ```
@@ -209,12 +209,12 @@ app1_rtx_lib.c app2_rtx_lib.c: $(RTX_HOME)/Source/rtx_lib.c
 	cp $^ $@
 ```
 
-Without an rtx_lib.o for each application, you run the risk of a
-shared rtx_lib.o being linked to BOTH applications, and it may be
+Without an `rtx_lib.o` for each application, you run the risk of a
+shared `rtx_lib.o` being linked to BOTH applications, and it may be
 right for one but wrong for the other.
 
 If you have just a single application in your project, disregard this
-and just use rtx_lib.c in-place via VPATH. 
+and just use `rtx_lib.c` in-place via VPATH. 
 
 Next, we want to configure each application's RTX runtime
 requirements, individually.  We can do this via GNU make's
