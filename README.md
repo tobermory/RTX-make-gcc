@@ -72,6 +72,20 @@ For those unlucky enough to have never crossed paths with
 [ed](https://github.com/emacs-mirror/emacs/blob/master/etc/JOKES), it
 is the true path to nirvana.
 
+The files included in this repo that we will refer to in these
+instructions are just:
+
+```
+Makefile
+cm3.mk
+cm4.mk
+apps/Makefile
+apps/cm3.mk
+apps/cm4.mk
+apps/app1.c
+apps/app2.c
+```
+
 # The Build
 
 The RTX 5.5.3 sources can be built mostly as a library (i.e. a .a
