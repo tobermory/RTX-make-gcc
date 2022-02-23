@@ -47,7 +47,7 @@ your PATH. Author has v4.1 and v8.2.1 respectively, on Ubuntu
 ## The Preparation
 
 First, grab RTX sources from github.  They are just one component of
-the larger CMSIS_5 code bundle:
+the larger CMSIS_5 code bundle from ARM-software:
 
 ```
 $ mkdir SOME_HOME_FOR_CMSIS_5
