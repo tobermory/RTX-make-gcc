@@ -12,22 +12,44 @@ the question sometimes pops up 'Can I build RTX with gcc/make' ? The
 answer is yes, and this is how I do it, on Linux at least. YMMV on
 other platforms.
 
+## CMSIS_5 Releases/Tags, RTX versions
+
+We align the tagged commits of this repo with that of the CMSIS_5 git
+repo from ARM software, since that repo is home to the RTX sources. We
+are simply providing a build process for that code.
+
+Our
+[5.8.0](https://github.com/tobermory/RTX-make-gcc/releases/tag/5.8.0)
+tag uses the RTX sources labelled 5.5.3, as current in the CMSIS_5
+[5.8.0](https://github.com/ARM-software/CMSIS_5/releases/tag/5.8.0) tag.
+
+Our
+[5.7.0](https://github.com/tobermory/RTX-make-gcc/releases/tag/5.7.0)
+tag uses the RTX sources labelled 5.5.2, as current in the CMSIS_5
+[5.7.0](https://github.com/ARM-software/CMSIS_5/releases/tag/5.7.0) tag.
+
+Our
+[5.6.0](https://github.com/tobermory/RTX-make-gcc/releases/tag/5.6.0)
+tag uses the RTX sources labelled 5.5.1, as current in the CMSIS_5
+[5.6.0](https://github.com/ARM-software/CMSIS_5/releases/tag/5.6.0) tag.
+
+
 ## The Prerequisites
 
 GNU Make and the arm-none-eabi toolchain.  Ensure both are on your
-PATH. Author has v4.1 and v7.3.1 respectively, on Ubuntu 18.04LTS.
+PATH. Author has v4.1 and v8.2.1 respectively, on Ubuntu 18.04LTS.
 
 ## The Preparation
 
-First, grab RTX sources from github:
+First, grab RTX sources from github.  They are just one component of
+the larger CMSIS_5 code bundle:
 
 ```
 $ mkdir SOME_HOME_FOR_CMSIS_5
 $ cd    SOME_HOME_FOR_CMSIS_5
 $ git   clone https://github.com/ARM-software/CMSIS_5.git
-$ cd    CMSIS_5 && git checkout 5.6.0
+$ cd    CMSIS_5 && git checkout 5.8.0
 ```
-Other tags may work too, I have used 5.6.0 for a year or two.
 
 Then, return to this project and
 
@@ -45,7 +67,20 @@ For those unlucky enough to have never crossed paths with
 [ed](https://github.com/emacs-mirror/emacs/blob/master/etc/JOKES), it
 is the true path to nirvana.
 
-## The Build
+# The Build
+
+The RTX 5.5.3 sources can be mostly built as a library (i.e. a .a
+file) which can then be linked to your applications. We describe such
+a build using gcc/make.
+
+To configure the RTX parts of each application (tick frequency, thread
+stacks, etc) requires including one RTX source file (rtx_lib.c) in
+the build and link of each application. Again, we can do that using gcc/make.
+
+Our goal is to make no edits to ANY RTX source file, be it a .c or a .h.
+
+## Building RTX as a Library
+
 
 See `./Makefile` for more commentary, but essentially
 
@@ -62,7 +97,7 @@ $ make V=1
 ```
 
 With the library built, proceed to build some example applications
-(just one currently):
+(two trivial examples currently):
 
 ```
 $ make examples
