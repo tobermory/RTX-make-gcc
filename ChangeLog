@@ -1,3 +1,8 @@
+2022-02-22  Stuart Maclean  <sdmaclean@gmail.com>
+
+	* Tag 5.8.0 - builds against CMSIS_5 5.8.0 tag.
+	https://github.com/ARM-software/CMSIS_5/tree/5.8.0
+
 2021-11-08  Stuart Maclean  <sdmaclean@gmail.com>
 
 	* Tag 5.7.0 - builds against CMSIS_5 5.7.0 tag.
